@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JOFIWEAR - Premium Clothing Store</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://scontent.flos5-1.fna.fbcdn.net/v/t39.30808-6/659039735_26252071331110942_7416905381269475973_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=2a1932&_nc_ohc=vAb3FlKF88MQ7kNvwFlmrXD&_nc_oc=AdqTGC5RkPQjWNh6OpV4jMLPB1BxL3ZAC3CzzBO5tuA2qrEhIK9ioIBj3n49i7dUUgg&_nc_zt=23&_nc_ht=scontent.flos5-1.fna&_nc_gid=WCQJR7mQXHPdFE3EoOM0qg&_nc_ss=7a389&oh=00_Af0Nf_0-_gzIQcwwjCgKGCkmdiq8A4GmO3NfG_ldV6Vf5Q&oe=69EC4953" alt="JOFIWEAR">
+        <span>JOFIWEAR</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#products" class="nav-link">Shop</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="cart-icon" onclick="toggleCart()">
+        🛒 <span id="cart-count">0</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Spring Collection 2026</h1>
+      <p>Discover Premium Fashion at Unbeatable Prices</p>
+      <a href="#products" class="cta-button">Shop Now</a>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <div class="container">
+      <h2>Find Your Style</h2>
+      <div class="filter-controls">
+        <input type="text" id="search" placeholder="Search products..." class="search-box">
+        <select id="category-filter" class="filter-select">
+          <option value="">All Categories</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
+          <option value="kids">Kids</option>
+          <option value="accessories">Accessories</option>
+        </select>
+        <select id="price-filter" class="filter-select">
+          <option value="">All Prices</option>
+          <option value="0-50">$0 - $50</option>
+          <option value="50-100">$50 - $100</option>
+          <option value="100-200">$100 - $200</option>
+          <option value="200-999">$200+</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products" id="products">
+    <div class="container">
+      <h2>Our Collection</h2>
+      <div class="product-grid" id="product-list">
+        <!-- Products will be dynamically loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2>About JOFIWEAR</h2>
+      <p>JOFIWEAR is your destination for premium, affordable fashion. We believe everyone deserves to look and feel their best. Our curated collection features the latest trends from around the world.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <p>Email: info@jofiwear.com | Phone: +1 (555) 123-4567</p>
+    </div>
+  </section>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-sidebar" id="cart-sidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items-container" id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-summary">
+        <p><strong>Subtotal: $<span id="cart-subtotal">0</span></strong></p>
+        <p>Tax (10%): $<span id="cart-tax">0</span></p>
+        <p><strong>Total: $<span id="cart-total">0</span></strong></p>
+      </div>
+      <button class="checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+      <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div class="modal" id="checkout-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Checkout</h2>
+        <button class="modal-close" onclick="closeCheckout()">✕</button>
+      </div>
+      <form id="checkout-form" onsubmit="completeOrder(event)">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" required>
+        </div>
+        <div class="form-group">
+          <label for="card">Card Number</label>
+          <input type="text" id="card" placeholder="1234 5678 9012 3456" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" placeholder="123" required>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn">Complete Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 JOFIWEAR. All rights reserved. | Premium Fashion Store</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
